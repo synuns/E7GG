@@ -84,10 +84,8 @@ const NavBar = () => {
                   <Link to="/" style={{ textDecoration: 'none', }}>
                     <Typography 
                       textAlign="center" 
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'}}>
+                      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                    >
                       <img src={Defense} alt="Defense" height="25"/>
                       Defense
                     </Typography>
@@ -97,10 +95,8 @@ const NavBar = () => {
                   <Link to="/offense" style={{ textDecoration: 'none' }}>
                     <Typography 
                       textAlign="center" 
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'}}>
+                      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                    >
                       <img src={Offense} alt="Defense" height="25"/>
                       Offense
                     </Typography>

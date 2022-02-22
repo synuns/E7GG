@@ -3,21 +3,22 @@ import React, { useEffect, useState } from 'react';
 
 function Defense() {
   const [metaData, setMetaData] = useState([]);
+  const [size, setSize] = useState(0);
   // const [error, setError] = useState(null);
 
   const getMetaData = async () => {
-    await axios
-      .get("/api")
-      .then((res) =>
-        setMetaData(res.data.test)
-      );
+    await axios.post("/api/defense")
+      .then((res) => {
+        setMetaData(res.data);
+        setSize(res.totalSize);
+      });
   };
 
   useEffect(() => {
     getMetaData();
   }, []);
 
-  console.log(metaData);
+  // console.log(metaData);
 
   return (
     <div>

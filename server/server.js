@@ -2,10 +2,12 @@ const express = require("express");
 
 const app = express();
 const hero = require("./Router/HeroData");
-const test = require("./Router/test");
+const defense = require("./Router/DefenseMeta");
+// const offense = require("./Router/OffenseMeta");
 
 app.use("/api/hero", hero);
-app.use("/api", test);
+app.use("/api/defense", defense);
+// app.use("/api/offense", offense);
 
 const port = 5000;
 

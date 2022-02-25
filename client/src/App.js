@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./NavBar";
-import Defense from "./Defense";
-import Offense from "./Offense";
+import NavBar from "./components/NavBar";
+import Defense from "./pages/Defense";
+import Offense from "./pages/Offense";
 
 function App() {
   return (

@@ -12,10 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import Coffee from "./images/coffee.png";
-import Defense from "./images/battle_pvp_icon_def.png";
-import Offense from "./images/battle_pvp_icon_win.png";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Coffee from "../images/coffee.png";
+import Defense from "../images/battle_pvp_icon_def.png";
+import Offense from "../images/battle_pvp_icon_win.png";
 
 const darkTheme = createTheme({
   palette: {

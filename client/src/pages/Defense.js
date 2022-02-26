@@ -7,30 +7,31 @@ function Defense() {
   const [heroIcons, setHeroIcons] = useState([]);
   const [error, setError] = useState(null);
 
-  const getHeroIcons = () => {
-    const defenseStrs = metaData.slice(0, 20);
-    const icons = IdToIcon(defenseStrs)
-      .then(icons => {
-        // [fix] icons get nothing...
-        console.log(icons);
-        // setHeroIcons(icons)
-      });
-    // console.log(icons);
-    // setHeroIcons([...heroIcons, icons]);
-  }
-
-  useEffect(() => {
-    DefenseMetaApi()
+  const getDefenseMetaData = async () => {
+    await DefenseMetaApi()
       .then(res => {
         setMetaData(res.data);
       })
       .catch(error => {
         setError(error);
       });
-  }, []);
+  };
 
-  // [fix] getHeroIcons call after useEffect
-  getHeroIcons();
+  const getHeroIcons = () => {
+    const defenseStrs = metaData.slice(0, 20);
+    IdToIcon(defenseStrs)
+      .then(icons => {
+        setHeroIcons(icons);
+      })
+      .catch(error => {
+        setError(error);
+      });
+  };
+
+  useEffect(() => {
+    getDefenseMetaData();
+    getHeroIcons();
+  }, []);
 
   if (error) return <div>error!</div>;
   else{

@@ -8,14 +8,17 @@ const IdToIcon = async (heroStrs) => {
     const heroNames = heroStr.defense.split(',').map(x => heroesById[x]);
     heroNamesArr.push(heroNames);
   });
-  await HeroDataApi()
+  const heroIcons = await HeroDataApi()
     .then(heroData => {
       const heroIcons = heroNamesArr.map(heroNames => {
         return heroNames.map(x => heroData[x] ? heroData[x].assets.icon : questionCircle);
       });
-      // console.log(heroIcons);
-      return Promise.resolve(heroIcons);
+      return heroIcons;
+    })
+    .catch(error => {
+      return error;
     });
+  return heroIcons;
 }
 
 export default IdToIcon;

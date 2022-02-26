@@ -33,11 +33,24 @@ function Defense() {
     getHeroIcons();
   }, []);
 
+  // console.log(metaData[0].d);
+
   if (error) return <div>error!</div>;
   else{
     return (
-      <div>
-        <div>This is Defense Page</div>
+      <div className="defenseMeta">
+        {heroIcons.map((heroIcon, index) => (
+          <div key={index}>
+            {heroIcon.map((icon, index) => (
+              <img key={index} src={icon} alt="icon" style={{width:70}} />
+            ))}
+            <div className="result">
+              {/* <div className="win">{metaData[index].w}</div>
+              <div className="draw">{metaData[index].d}</div>
+              <div className="lose">{metaData[index].lose}</div> */}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

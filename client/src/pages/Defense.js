@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import DefenseMetaApi from '../api/DefenseMetaApi';
 import IdToIcon from '../components/IdToIcon';
 
@@ -7,7 +7,7 @@ function Defense() {
   const [heroIcons, setHeroIcons] = useState([]);
   const [error, setError] = useState(null);
 
-  const getDefenseMetaData = async () => {
+  const getDefenseMetaData = useCallback(async () => {
     await DefenseMetaApi()
       .then(res => {
         setMetaData(res.data);
@@ -15,9 +15,9 @@ function Defense() {
       .catch(error => {
         setError(error);
       });
-  };
+  }, []);
 
-  const getHeroIcons = () => {
+  const getHeroIcons = useCallback(() => {
     const defenseStrs = metaData.slice(0, 20);
     IdToIcon(defenseStrs)
       .then(icons => {
@@ -26,14 +26,12 @@ function Defense() {
       .catch(error => {
         setError(error);
       });
-  };
+  }, [metaData]);
 
   useEffect(() => {
     getDefenseMetaData();
     getHeroIcons();
-  }, []);
-
-  // console.log(metaData[0].d);
+  }, [getDefenseMetaData, getHeroIcons]);
 
   if (error) return <div>error!</div>;
   else{

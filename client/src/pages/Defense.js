@@ -1,57 +1,67 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import DefenseMetaApi from '../api/DefenseMetaApi';
+import ErrorBoundary from '../components/ErrorBoundary';
 import IdToIcon from '../components/IdToIcon';
+import MetaRecord from '../components/MetaRecord';
 
 function Defense() {
   const [metaData, setMetaData] = useState([]);
   const [heroIcons, setHeroIcons] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const getDefenseMetaData = useCallback(async () => {
+    console.log("getDefenseMetaData Running...");
+    setLoading(true);
     await DefenseMetaApi()
       .then(res => {
         setMetaData(res.data);
       })
       .catch(error => {
         setError(error);
+        setLoading(false);
       });
   }, []);
 
-  const getHeroIcons = useCallback(() => {
+  const getHeroIcons = useCallback(async() => {
+    console.log("getHeroIcons Running...");
     const defenseStrs = metaData.slice(0, 20);
-    IdToIcon(defenseStrs)
+    await IdToIcon(defenseStrs)
       .then(icons => {
         setHeroIcons(icons);
       })
       .catch(error => {
         setError(error);
+        setLoading(false);
       });
   }, [metaData]);
 
   useEffect(() => {
     getDefenseMetaData();
-    getHeroIcons();
-  }, [getDefenseMetaData, getHeroIcons]);
+  }, [getDefenseMetaData])
 
-  if (error) return <div>error!</div>;
-  else{
-    return (
-      <div className="defenseMeta">
-        {heroIcons.map((heroIcon, index) => (
-          <div key={index}>
-            {heroIcon.map((icon, index) => (
-              <img key={index} src={icon} alt="icon" style={{width:70}} />
-            ))}
-            <div className="result">
-              {/* <div className="win">{metaData[index].w}</div>
-              <div className="draw">{metaData[index].d}</div>
-              <div className="lose">{metaData[index].lose}</div> */}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  useEffect(() => {
+    getHeroIcons();
+    return () => setLoading(false);
+  }, [getHeroIcons]);
+
+  if (error !== null) return <div>error!</div>;
+  return (
+    <div className="defenseMeta">
+      <ErrorBoundary>
+        {loading ? 
+          <span>Loading...</span> :
+          heroIcons.map((heroIcon, index) => (
+            <MetaRecord
+              key={index}
+              icons={heroIcon}
+              records={metaData[index]}
+            />
+          ))
+        }
+      </ErrorBoundary>
+    </div>
+  );
 }
 
 export default Defense;

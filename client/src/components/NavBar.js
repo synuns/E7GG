@@ -102,6 +102,17 @@ const NavBar = () => {
                     </Typography>
                   </Link>
                 </MenuItem>
+                <MenuItem key="info" onClick={handleCloseNavMenu}>
+                  <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Typography 
+                      textAlign="center" 
+                      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                    >
+                      <InfoIcon />
+                      Info
+                    </Typography>
+                  </Link>
+                </MenuItem>
               </Menu>
             </Box>
             <Typography

@@ -38,8 +38,8 @@ function MetaRecord({ icons, records }) {
         cols={3}
       >
         {icons.map((icon, index) => (
-          <ImageListItem>
-            <img key={index} src={icon} alt="icon" />
+          <ImageListItem key={index} >
+            <img src={icon} alt="icon" />
           </ImageListItem>
         ))}
       </ImageList>

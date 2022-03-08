@@ -11,7 +11,6 @@ function Defense() {
   const [error, setError] = useState(null);
 
   const getDefenseMetaData = useCallback(async () => {
-    console.log("getDefenseMetaData Running...");
     setLoading(true);
     await DefenseMetaApi()
       .then(res => {
@@ -24,7 +23,6 @@ function Defense() {
   }, []);
 
   const getHeroIcons = useCallback(async() => {
-    console.log("getHeroIcons Running...");
     const defenseStrs = metaData.slice(0, 20);
     await IdToIcon(defenseStrs)
       .then(icons => {

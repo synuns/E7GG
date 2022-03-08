@@ -100,6 +100,10 @@ function Offense() {
     setThird(event.target.innerText);
   };
 
+  const preventDragHandler = (event) => {
+    event.preventDefault();
+  }
+
   const getHeroData = async () => {
     setLoading(true);
     await HeroDataApi()
@@ -123,25 +127,32 @@ function Offense() {
     <Box>
       <Box>
         <ImageList
+          display='fix'
           sx={{ 
             width: 'auto', 
             m: 1.5,
           }}
           cols={3}
         >
-          <ImageListItem >
+          <ImageListItem 
+            onDragStart={preventDragHandler}
+          >
             {(first === "")
               ? <img src={questionCircle} alt="icon" />
               : <img src={heroes[first].assets.icon} alt="icon" />
             }
           </ImageListItem>
-          <ImageListItem >
+          <ImageListItem 
+            onDragStart={preventDragHandler}
+          >
           {(second === "")
               ? <img src={questionCircle} alt="icon" />
               : <img src={heroes[second].assets.icon} alt="icon" />
             }
           </ImageListItem>
-          <ImageListItem >
+          <ImageListItem 
+            onDragStart={preventDragHandler}
+          >
           {(third === "")
               ? <img src={questionCircle} alt="icon" />
               : <img src={heroes[third].assets.icon} alt="icon" />

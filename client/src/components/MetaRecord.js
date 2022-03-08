@@ -14,6 +14,11 @@ const CalPercent = (win, draw, lose) => {
 }
 
 function MetaRecord({ icons, records }) {
+
+  const preventDragHandler = (event) => {
+    event.preventDefault();
+  }
+
   return (
     <Box
       justifyContent="space-between"
@@ -38,7 +43,10 @@ function MetaRecord({ icons, records }) {
         cols={3}
       >
         {icons.map((icon, index) => (
-          <ImageListItem key={index} >
+          <ImageListItem
+            key={index}
+            onDragStart={preventDragHandler}
+          >
             <img src={icon} alt="icon" />
           </ImageListItem>
         ))}

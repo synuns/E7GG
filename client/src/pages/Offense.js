@@ -1,7 +1,10 @@
-import { Autocomplete, Box, TextField, ImageList, ImageListItem } from '@mui/material';
+import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip, Modal, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import HeroDataApi from '../api/HeroDataApi';
+import OffenseMetaApi from '../api/OffenseMetaApi';
 import heroesById from '../components/HeroesById';
+import IdToIcon from '../components/IdToIcon';
+import MetaRecord from '../components/MetaRecord';
 import Assassin from '../images/classassassin.png';
 import Knight from '../images/classknight.png';
 import Mage from '../images/classmage.png';
@@ -14,7 +17,8 @@ import Fire from '../images/elementfire.png';
 import Ice from '../images/elementice.png';
 import Light from '../images/elementlight.png';
 import questionCircle from "../images/question_circle.png";
-import OffenseMetaApi from '../api/OffenseMetaApi';
+import SendIcon from '@mui/icons-material/Send';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const attributeImgs = {
   fire: Fire,
@@ -40,7 +44,26 @@ const objectFlip = (obj) => {
   }, {});
 }
 
-const HeroSelector = ({ data, text, changeHandler }) => {
+const HeroDisplay = ({ hero }) => {
+  const preventDragHandler = (event) => {
+    event.preventDefault();
+  }
+
+  return (
+    <Tooltip title={hero ? hero.name : "Select Hero"}>
+      <ImageListItem 
+        onDragStart={preventDragHandler}
+      >
+        {hero
+          ? <img src={hero.assets.icon} alt="icon" />
+          : <img src={questionCircle} alt="icon" />
+        }
+      </ImageListItem>
+    </Tooltip>
+  );
+}
+
+const HeroSelector = ({ data, loading, text, setValue, selected }) => {
   data = Object.values(data);
   return (
     <Autocomplete
@@ -51,8 +74,14 @@ const HeroSelector = ({ data, text, changeHandler }) => {
       }}
       options={data}
       autoHighlight
+      loading={loading}
+      loadingText="loading..."
       getOptionLabel={(option) => option.name}
-      onChange={changeHandler}
+      value={selected ? selected : null }
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      isOptionEqualToValue={(option, selected) => option.name === selected.name}
       renderOption={(props, option) => (
         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
           <img
@@ -89,38 +118,68 @@ const HeroSelector = ({ data, text, changeHandler }) => {
   );
 }
 
+const CautionModal = ({ open, handleClose }) => {
+  return (
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Select heroes again!
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            Choose three different heroes each.
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
 function Offense() {
   const [heroes, setHeroes] = useState([]);
-  const [first, setFirst] = useState("");
-  const [second, setSecond] = useState("");
-  const [third, setThird] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [metaData, setMetaData] = useState([]);
+  const [heroIcons, setHeroIcons] = useState([]);
+  const [metaLoading, setMetaLoading] = useState(false);
+  const [metaError, setMetaError] = useState(null);
+
+  const [first, setFirst] = useState(null);
+  const [second, setSecond] = useState(null);
+  const [third, setThird] = useState(null);
+  const [open, setOpen] = useState(false);
+
   const IdByHeroes = objectFlip(heroesById);
-
-  const handleFirstSelector = (event) => {
-    // console.log(event);
-    // console.log('value : ' + event.target.value);
-    // console.log('innerText : ' + event.target.innerText);
-    setFirst(heroes[event.target.innerText]);
-    // console.log(first);
+  const type = 'offense';
+  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleRefresh = () => {
+    setFirst(null);
+    setSecond(null);
+    setThird(null);
   };
 
-  const handleSecondSelector = (event) => {
-    setSecond(heroes[event.target.innerText]);
-  };
-
-  const handleThirdSelector = (event) => {
-    setThird(heroes[event.target.innerText]);
-  };
-
-  const preventDragHandler = (event) => {
-    event.preventDefault();
-  }
-
-  const getOffenseMetaData = useCallback(async () => {
-    if(first === "" || second === "" || third === ""){
+  const handleSubmit = async () => {
+    if((!first || !second || !third)||(first === second || second === third || third === first)){
+      handleOpen();
       return
     }
     const selected = [
@@ -128,18 +187,36 @@ function Offense() {
       IdByHeroes[second.name],
       IdByHeroes[third.name]
     ].sort();
-    console.log(selected);
-    // setLoading(true);
+
+    setMetaLoading(true);
     await OffenseMetaApi(selected)
       .then(res => {
-        setMetaData(res.data);
-        console.log(res.data);
+        const offense = Object.entries(res.data).sort(function compare(a, b) {
+          if (a[1].w + a[1].l + a[1].d < b[1].w + b[1].l + b[1].d)
+              return 1;
+          if (a[1].w + a[1].l + a[1].d > b[1].w + b[1].l + b[1].d)
+              return -1;
+          return 0;
+        }).slice(0, 100);
+        setMetaData(offense);
+      })
+      .catch(error => {
+        setMetaError(error);
+        setMetaLoading(false);
       });
-      // .catch(error => {
-      //   setError(error);
-      //   setLoading(false);
-      // });
-  }, [first, second, third, IdByHeroes]);
+  }
+
+  const getHeroIcons = useCallback(async() => {
+    await IdToIcon(type, metaData)
+      .then(icons => {
+        setHeroIcons(icons);
+        setMetaLoading(false);
+      })
+      .catch(error => {
+        setMetaError(error);
+        setMetaLoading(false);
+      });
+  }, [metaData]);
 
   const getHeroData = async () => {
     setLoading(true);
@@ -155,79 +232,98 @@ function Offense() {
   };
 
   useEffect(() => {
+    getHeroIcons();
+  }, [getHeroIcons]);
+
+  useEffect(() => {
     getHeroData();
   }, []);
 
-  useEffect(() => {
-    getOffenseMetaData();
-  }, [getOffenseMetaData]);
-
-  console.log(heroes);
-  console.log(metaData);
-
-  if(loading) return <div>Loading...</div>;
   if(error) return <div>Error!</div>;
   return (
     <Box
       sx={{
-        width: 465,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: 480,
       }}
     >
       <Box>
         <ImageList
           display='fix'
-          sx={{ 
-            width: 'auto', 
-            m: 1.5,
-          }}
+          sx={{ width: 'auto', m: 1.5 }}
           cols={3}
         >
-          <ImageListItem 
-            onDragStart={preventDragHandler}
-          >
-            {(first === "")
-              ? <img src={questionCircle} alt="icon" />
-              : <img src={first.assets.icon} alt="icon" />
-            }
-          </ImageListItem>
-          <ImageListItem 
-            onDragStart={preventDragHandler}
-          >
-          {(second === "")
-              ? <img src={questionCircle} alt="icon" />
-              : <img src={second.assets.icon} alt="icon" />
-            }
-          </ImageListItem>
-          <ImageListItem 
-            onDragStart={preventDragHandler}
-          >
-          {(third === "")
-              ? <img src={questionCircle} alt="icon" />
-              : <img src={third.assets.icon} alt="icon" />
-            }
-          </ImageListItem>
+          <HeroDisplay hero={first} />
+          <HeroDisplay hero={second} />
+          <HeroDisplay hero={third} />
         </ImageList>
       </Box>
       <Box>
         <HeroSelector 
           data={heroes}
-          text="Chooste 1st hero"
-          changeHandler={handleFirstSelector}
+          loading={loading}
+          text="1st hero"
+          setValue={setFirst}
+          selected={first}
         />
         <HeroSelector 
           data={heroes}
-          text="Chooste 2nd hero"
-          changeHandler={handleSecondSelector}
+          loading={loading}
+          text="2nd hero"
+          setValue={setSecond}
+          selected={second}
         />
         <HeroSelector 
           data={heroes}
-          text="Chooste 3rd hero"
-          changeHandler={handleThirdSelector}
+          loading={loading}
+          text="3rd hero"
+          setValue={setThird}
+          selected={third}
         />
+        <Box
+          sx={{
+            display: 'flex',
+            alignContent: 'center',
+            justifyContent: 'center',
+            mt: 2,
+            width: 'auto',
+          }}
+        >
+          <Button 
+            size="large"
+            variant="outlined" 
+            startIcon={<RefreshIcon />}
+            sx={{ mx: 2, width: '100%',  }}
+            onClick={handleRefresh}
+          >
+            Refresh
+          </Button>
+          <Button 
+            size="large"
+            variant="contained" 
+            endIcon={<SendIcon />}
+            sx={{ mx: 2, width: '100%' }}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
       <Box>
-
+        {
+          heroIcons.map((heroIcon, index) => (
+            <MetaRecord
+              type={type}
+              key={index}
+              icons={heroIcon}
+              records={metaData[index]}
+            />
+          ))
+        }
       </Box>
+      <CautionModal open={open} handleClose={handleClose}/>
     </Box>
   );
 }

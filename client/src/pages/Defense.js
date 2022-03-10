@@ -9,6 +9,7 @@ function Defense() {
   const [heroIcons, setHeroIcons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const type = 'defense';
 
   const getDefenseMetaData = useCallback(async () => {
     setLoading(true);
@@ -24,7 +25,7 @@ function Defense() {
 
   const getHeroIcons = useCallback(async() => {
     const defenseStrs = metaData.slice(0, 20);
-    await IdToIcon(defenseStrs)
+    await IdToIcon(type, defenseStrs)
       .then(icons => {
         setHeroIcons(icons);
       })
@@ -51,7 +52,7 @@ function Defense() {
           <span>Loading...</span> :
           heroIcons.map((heroIcon, index) => (
             <MetaRecord
-              type="defense"
+              type={type}
               key={index}
               icons={heroIcon}
               records={metaData[index]}

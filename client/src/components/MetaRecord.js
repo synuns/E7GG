@@ -15,8 +15,75 @@ const CalPercent = (win, draw, lose) => {
   return "-";
 }
 
-function MetaRecord({ type, icons, records }) {
+const PercentRecord = ({ type, records }) => {
+  let percent = 0;
+  if(type === 'defense'){
+    percent = CalPercent(records.w, records.d, records.l);
+  }else if(type === 'offense'){
+    percent = CalPercent(records[1].w, records[1].d, records[1].l);
+  }
+  return (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignContent="center"
+    >
+      {percent}
+      <PercentIcon />
+    </Box>
+  );
+}
 
+const WinRecord = ({ type, records }) => {
+  if(type === 'defense'){
+    return (
+      <Box
+        display="inline-flex"
+        sx={{ m:1 }}
+      >
+        { records.w }
+        <img src={DefWinIcon} alt="Defense" height="28"/>
+      </Box>
+    );
+  }else if(type === 'offense'){
+    return (
+      <Box
+        display="inline-flex"
+        sx={{ m:1 }}
+      >
+        { records[1].w }
+        <img src={AtkWinIcon} alt="Offense" height="28"/>
+      </Box>
+    );
+  }
+}
+
+const LoseRecord = ({ type, records }) => {
+  if(type === 'defense'){
+    return (
+      <Box
+        display="inline-flex"
+        sx={{ m:1 }}
+      >
+        { records.l }
+        <img src={DefLoseIcon} alt="Defense" height="28"/>
+      </Box>
+    );
+  }else if(type === 'offense'){
+    return (
+      <Box
+        display="inline-flex"
+        sx={{ m:1 }}
+      >
+        { records[1].l }
+        <img src={AtkLoseIcon} alt="Offense" height="28"/>
+      </Box>
+    );
+  }
+}
+
+
+function MetaRecord({ type, icons, records }) {
   const preventDragHandler = (event) => {
     event.preventDefault();
   }
@@ -65,39 +132,14 @@ function MetaRecord({ type, icons, records }) {
           mt: 1,
         }}
       >
+        <PercentRecord type={type} records={records} />
         <Box
           display="flex"
           justifyContent="center"
           alignContent="center"
         >
-          {CalPercent(records.w, records.d, records.l)}
-          <PercentIcon />
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignContent="center"
-        >
-          <Box
-            display="inline-flex"
-            sx={{ m:1 }}
-          >
-            {records.w}
-            {type === 'offense'
-              ? <img src={AtkWinIcon} alt="Offense" height="28"/>
-              : <img src={DefWinIcon} alt="Defense" height="28"/>
-            }
-          </Box>
-          <Box
-            display="inline-flex"
-            sx={{ m:1 }}
-          >
-            {records.l}
-            {type === 'offense'
-              ? <img src={AtkLoseIcon} alt="Offense" height="28"/>
-              : <img src={DefLoseIcon} alt="Defense" height="28"/>
-            }
-          </Box>
+          <WinRecord type={type} records={records} />
+          <LoseRecord type={type} records={records} />
         </Box>
       </Box>
     </Box>

@@ -1,19 +1,21 @@
 import { Box, ImageList, ImageListItem } from '@mui/material';
 import PercentIcon from '@mui/icons-material/Percent';
-import DefIcon from '../images/battle_pvp_icon_def.png';
-import DefeatIcon from '../images/battle_pvp_icon_defeat.png';
+import DefWinIcon from '../images/battle_pvp_icon_def.png';
+import DefLoseIcon from '../images/battle_pvp_icon_defeat.png';
+import AtkWinIcon from '../images/battle_pvp_icon_win.png'
+import AtkLoseIcon from '../images/battle_pvp_icon_lose.png'
 import React from 'react';
 
 const CalPercent = (win, draw, lose) => {
   const total = win + draw + lose;
   const percent = win / total * 100;
   if(percent){
-    return percent;
+    return +(Math.round(percent + "e+1")  + "e-1");
   }
-  return 0;
+  return "-";
 }
 
-function MetaRecord({ icons, records }) {
+function MetaRecord({ type, icons, records }) {
 
   const preventDragHandler = (event) => {
     event.preventDefault();
@@ -68,7 +70,7 @@ function MetaRecord({ icons, records }) {
           justifyContent="center"
           alignContent="center"
         >
-          {CalPercent(records.w + records.d + records.l)}
+          {CalPercent(records.w, records.d, records.l)}
           <PercentIcon />
         </Box>
         <Box
@@ -81,14 +83,20 @@ function MetaRecord({ icons, records }) {
             sx={{ m:1 }}
           >
             {records.w}
-            <img src={DefIcon} alt="Defense" height="28"/>
+            {type === 'offense'
+              ? <img src={AtkWinIcon} alt="Offense" height="28"/>
+              : <img src={DefWinIcon} alt="Defense" height="28"/>
+            }
           </Box>
           <Box
             display="inline-flex"
             sx={{ m:1 }}
           >
             {records.l}
-            <img src={DefeatIcon} alt="Defeat" height="28"/>
+            {type === 'offense'
+              ? <img src={AtkLoseIcon} alt="Offense" height="28"/>
+              : <img src={DefLoseIcon} alt="Defense" height="28"/>
+            }
           </Box>
         </Box>
       </Box>

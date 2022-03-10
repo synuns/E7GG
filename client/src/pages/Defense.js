@@ -51,6 +51,7 @@ function Defense() {
           <span>Loading...</span> :
           heroIcons.map((heroIcon, index) => (
             <MetaRecord
+              type="defense"
               key={index}
               icons={heroIcon}
               records={metaData[index]}

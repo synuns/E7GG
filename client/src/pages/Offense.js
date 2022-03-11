@@ -2,7 +2,7 @@ import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip
 import React, { useCallback, useEffect, useState } from 'react';
 import HeroDataApi from '../api/HeroDataApi';
 import OffenseMetaApi from '../api/OffenseMetaApi';
-import heroesById from '../components/HeroesById';
+import GetIdByHeroes from '../components/GetIdByHeroes';
 import IdToIcon from '../components/IdToIcon';
 import MetaRecord from '../components/MetaRecord';
 import Assassin from '../images/classassassin.png';
@@ -36,13 +36,6 @@ const roleImgs = {
   ranger: Ranger,
   warrior: Warrior
 };
-
-const objectFlip = (obj) => {
-  return Object.keys(obj).reduce((ret, key) => {
-    ret[obj[key]] = key;
-    return ret;
-  }, {});
-}
 
 const HeroDisplay = ({ hero }) => {
   const preventDragHandler = (event) => {
@@ -166,7 +159,7 @@ function Offense() {
   const [third, setThird] = useState(null);
   const [open, setOpen] = useState(false);
 
-  const IdByHeroes = objectFlip(heroesById);
+  const IdByHeroes = GetIdByHeroes();
   const type = 'offense';
   
   const handleOpen = () => setOpen(true);
@@ -201,7 +194,6 @@ function Offense() {
           return 0;
         }).slice(0, 100);
         setMetaData(offense);
-        console.log(metaData);
       })
       .catch(error => {
         setMetaError(error);

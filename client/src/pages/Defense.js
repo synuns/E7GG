@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import DefenseMetaApi from '../api/DefenseMetaApi';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -16,6 +17,7 @@ function Defense() {
     await DefenseMetaApi()
       .then(res => {
         setMetaData(res.data);
+        console.log(metaData);
       })
       .catch(error => {
         setError(error);
@@ -46,7 +48,11 @@ function Defense() {
 
   if (error !== null) return <div>error!</div>;
   return (
-    <div className="defenseMeta">
+    <Box
+      sx={{
+        mt: 8
+      }}
+    >
       <ErrorBoundary>
         {loading ? 
           <span>Loading...</span> :
@@ -60,7 +66,7 @@ function Defense() {
           ))
         }
       </ErrorBoundary>
-    </div>
+    </Box>
   );
 }
 

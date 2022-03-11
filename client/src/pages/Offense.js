@@ -175,6 +175,8 @@ function Offense() {
     setFirst(null);
     setSecond(null);
     setThird(null);
+    setMetaData([]);
+    setHeroIcons([]);
   };
 
   const handleSubmit = async () => {
@@ -199,6 +201,7 @@ function Offense() {
           return 0;
         }).slice(0, 100);
         setMetaData(offense);
+        console.log(metaData);
       })
       .catch(error => {
         setMetaError(error);
@@ -247,6 +250,7 @@ function Offense() {
         flexDirection: 'column',
         justifyContent: 'center',
         width: 480,
+        mt: 8,
       }}
     >
       <Box>

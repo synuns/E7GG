@@ -1,4 +1,5 @@
-import { Box, ImageList, ImageListItem } from '@mui/material';
+import { Box, ImageList, ImageListItem, Tooltip } from '@mui/material';
+import heroesById from './HeroesById';
 import PercentIcon from '@mui/icons-material/Percent';
 import DefWinIcon from '../images/battle_pvp_icon_def.png';
 import DefLoseIcon from '../images/battle_pvp_icon_defeat.png';
@@ -6,7 +7,7 @@ import AtkWinIcon from '../images/battle_pvp_icon_win.png'
 import AtkLoseIcon from '../images/battle_pvp_icon_lose.png'
 import React from 'react';
 
-const CalPercent = (win, draw, lose) => {
+const calPercent = (win, draw, lose) => {
   const total = win + draw + lose;
   const percent = win / total * 100;
   if(percent){
@@ -15,78 +16,115 @@ const CalPercent = (win, draw, lose) => {
   return "-";
 }
 
-const PercentRecord = ({ type, records }) => {
-  let percent = 0;
-  if(type === 'defense'){
-    percent = CalPercent(records.w, records.d, records.l);
-  }else if(type === 'offense'){
-    percent = CalPercent(records[1].w, records[1].d, records[1].l);
+const idsToNames = (records) => {
+  let heroNames;
+  if(records.defense){
+    heroNames = records.defense.split(',').map(x => heroesById[x]);
+  }else if(records[0]){
+    heroNames = records[0].split(',').map(x => heroesById[x]);
   }
+  return heroNames;
+}
+
+const DefRecord = ({ records }) => {
+  const percent = calPercent(records.w, records.d, records.l);
   return (
     <Box
       display="flex"
+      flexDirection= "column"
       justifyContent="center"
       alignContent="center"
+      sx={{
+        width: 180,
+        height: 70,
+        py: 2.5,
+        mt: 1,
+      }}
     >
-      {percent}
-      <PercentIcon />
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignContent="center"
+      >
+        {percent}
+        <PercentIcon />
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignContent="center"
+      >
+        <Box
+          display="inline-flex"
+          sx={{ m:1 }}
+        >
+          { records.w }
+          <img src={DefWinIcon} alt="Defense" height="28"/>
+        </Box>
+        <Box
+          display="inline-flex"
+          sx={{ m:1 }}
+        >
+          { records.l }
+          <img src={DefLoseIcon} alt="Defense" height="28"/>
+        </Box>
+      </Box>
     </Box>
   );
-}
+};
 
-const WinRecord = ({ type, records }) => {
-  if(type === 'defense'){
-    return (
+const AtkRecord = ({ records }) => {
+  const percent = calPercent(records[1].w, records[1].d, records[1].l);
+  return (
+    <Box
+      display="flex"
+      flexDirection= "column"
+      justifyContent="center"
+      alignContent="center"
+      sx={{
+        width: 180,
+        height: 70,
+        py: 2.5,
+        mt: 1,
+      }}
+    >
       <Box
-        display="inline-flex"
-        sx={{ m:1 }}
+        display="flex"
+        justifyContent="center"
+        alignContent="center"
       >
-        { records.w }
-        <img src={DefWinIcon} alt="Defense" height="28"/>
+        {percent}
+        <PercentIcon />
       </Box>
-    );
-  }else if(type === 'offense'){
-    return (
       <Box
-        display="inline-flex"
-        sx={{ m:1 }}
+        display="flex"
+        justifyContent="center"
+        alignContent="center"
       >
-        { records[1].w }
-        <img src={AtkWinIcon} alt="Offense" height="28"/>
+        <Box
+          display="inline-flex"
+          sx={{ m:1 }}
+        >
+          { records[1].w }
+          <img src={AtkWinIcon} alt="Offense" height="28"/>
+        </Box>
+        <Box
+          display="inline-flex"
+          sx={{ m:1 }}
+        >
+          { records[1].l }
+          <img src={AtkLoseIcon} alt="Offense" height="28"/>
+        </Box>
       </Box>
-    );
-  }
-}
-
-const LoseRecord = ({ type, records }) => {
-  if(type === 'defense'){
-    return (
-      <Box
-        display="inline-flex"
-        sx={{ m:1 }}
-      >
-        { records.l }
-        <img src={DefLoseIcon} alt="Defense" height="28"/>
-      </Box>
-    );
-  }else if(type === 'offense'){
-    return (
-      <Box
-        display="inline-flex"
-        sx={{ m:1 }}
-      >
-        { records[1].l }
-        <img src={AtkLoseIcon} alt="Offense" height="28"/>
-      </Box>
-    );
-  }
-}
-
+    </Box>
+  );
+};
 
 function MetaRecord({ type, icons, records }) {
   const preventDragHandler = (event) => {
     event.preventDefault();
   }
+  const heroNames = idsToNames(records);
 
   return (
     <Box
@@ -112,36 +150,20 @@ function MetaRecord({ type, icons, records }) {
         cols={3}
       >
         {icons.map((icon, index) => (
-          <ImageListItem
-            key={index}
-            onDragStart={preventDragHandler}
-          >
-            <img src={icon} alt="icon" />
-          </ImageListItem>
+          <Tooltip title={heroNames[index]}>
+            <ImageListItem
+              key={index}
+              onDragStart={preventDragHandler}
+            >
+                <img src={icon} alt="icon" />
+            </ImageListItem>
+          </Tooltip>
         ))}
       </ImageList>
-      <Box
-        display="flex"
-        flexDirection= "column"
-        justifyContent="center"
-        alignContent="center"
-        sx={{
-          width: 180,
-          height: 70,
-          py: 2.5,
-          mt: 1,
-        }}
-      >
-        <PercentRecord type={type} records={records} />
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignContent="center"
-        >
-          <WinRecord type={type} records={records} />
-          <LoseRecord type={type} records={records} />
-        </Box>
-      </Box>
+      { type === 'offense'
+        ? <AtkRecord records={records} />
+        : <DefRecord records={records} />
+      }
     </Box>
   );
 }

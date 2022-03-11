@@ -17,7 +17,6 @@ function Defense() {
     await DefenseMetaApi()
       .then(res => {
         setMetaData(res.data);
-        console.log(metaData);
       })
       .catch(error => {
         setError(error);

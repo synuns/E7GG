@@ -8,7 +8,7 @@ Epic seven guild war meta tracker
 [x] showing offense meta data
 [x] refresh button delete metadata
 [x] navbar fix position
-[] add metadata in the MetaRecord
+[x] add tooltip in the MetaRecord
 [] connect to the offense page in the defense page
 [] info modal
 [] each page info

@@ -17,6 +17,7 @@ import Coffee from "../images/coffee.png";
 import Defense from "../images/battle_pvp_icon_def.png";
 import Offense from "../images/battle_pvp_icon_win.png";
 import GuildCrest from "../images/guildcrest.png";
+import InfoModal from './InfoModal';
 
 const darkTheme = createTheme({
   palette: {
@@ -29,6 +30,9 @@ const darkTheme = createTheme({
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,6 +45,7 @@ const NavBar = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <AppBar position="fixed">
+      <InfoModal open={open} handleClose={handleCloseModal} />
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
@@ -104,16 +109,20 @@ const NavBar = () => {
                     </Typography>
                   </Link>
                 </MenuItem>
-                <MenuItem key="info" onClick={handleCloseNavMenu}>
-                  <Link to="/" style={{ textDecoration: 'none' }}>
-                    <Typography 
-                      textAlign="center" 
-                      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
-                    >
-                      <InfoIcon />
-                      Info
-                    </Typography>
-                  </Link>
+                <MenuItem 
+                  key="info" 
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    handleOpenModal();
+                  }}
+                >
+                  <Typography 
+                    textAlign="center" 
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                  >
+                    <InfoIcon sx={{ mr: 0.5 }} />
+                    Info
+                  </Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -148,7 +157,10 @@ const NavBar = () => {
                 </Button>
                 <Button
                   key="info"
-                  onClick={handleCloseNavMenu}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    handleOpenModal();
+                  }}
                   sx={{ my: 2, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 >
                   <InfoIcon sx={{ mr: 1 }} />

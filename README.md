@@ -11,8 +11,8 @@ Epic seven guild war meta tracker
 [x] add tooltip in the MetaRecord
 [x] connect to the offense page in the defense page
 [x] change favicon and title
-[] info modal
-[] each page info
+[x] info modal
+[] each page info, title
 [] loading component
 [] ErrorBoundary component
 [] each api no data, error handling (when free season)

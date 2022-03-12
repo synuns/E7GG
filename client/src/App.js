@@ -11,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Defense />} />
         <Route path="/offense" element={<Offense />} />
+        {/* <Route path="/*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,6 @@
 import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip, Modal, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import HeroDataApi from '../api/HeroDataApi';
 import OffenseMetaApi from '../api/OffenseMetaApi';
 import GetIdByHeroes from '../components/GetIdByHeroes';
@@ -144,7 +145,9 @@ const CautionModal = ({ open, handleClose }) => {
   );
 }
 
-function Offense() {
+const Offense = () => {
+  const location = useLocation();
+
   const [heroes, setHeroes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -161,7 +164,7 @@ function Offense() {
 
   const IdByHeroes = GetIdByHeroes();
   const type = 'offense';
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleRefresh = () => {
@@ -170,6 +173,7 @@ function Offense() {
     setThird(null);
     setMetaData([]);
     setHeroIcons([]);
+    location.state = null;
   };
 
   const handleSubmit = async () => {
@@ -201,18 +205,6 @@ function Offense() {
       });
   }
 
-  const getHeroIcons = useCallback(async() => {
-    await IdToIcon(type, metaData)
-      .then(icons => {
-        setHeroIcons(icons);
-        setMetaLoading(false);
-      })
-      .catch(error => {
-        setMetaError(error);
-        setMetaLoading(false);
-      });
-  }, [metaData]);
-
   const getHeroData = async () => {
     setLoading(true);
     await HeroDataApi()
@@ -226,13 +218,34 @@ function Offense() {
       });
   };
 
+  const getHeroIcons = useCallback(async() => {
+    await IdToIcon(type, metaData)
+      .then(icons => {
+        setHeroIcons(icons);
+        setMetaLoading(false);
+      })
+      .catch(error => {
+        setMetaError(error);
+        setMetaLoading(false);
+      });
+  }, [metaData]);
+  
   useEffect(() => {
-    getHeroIcons();
-  }, [getHeroIcons]);
+    if(heroes && location.state){
+      const defDeck = location.state;
+      setFirst(heroes[defDeck[0]]);
+      setSecond(heroes[defDeck[1]]);
+      setThird(heroes[defDeck[2]]);
+    }
+  }, [heroes, location.state]);
 
   useEffect(() => {
     getHeroData();
   }, []);
+  
+  useEffect(() => {
+    getHeroIcons();
+  }, [getHeroIcons]);
 
   if(error) return <div>Error!</div>;
   return (

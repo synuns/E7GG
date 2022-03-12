@@ -10,12 +10,13 @@ Epic seven guild war meta tracker
 [x] navbar fix position
 [x] add tooltip in the MetaRecord
 [x] connect to the offense page in the defense page
-[] change favicon and title
+[x] change favicon and title
 [] info modal
 [] each page info
 [] loading component
 [] ErrorBoundary component
 [] each api no data, error handling (when free season)
 [] globally prevent drag image
+[] offense page move to top button
 [] styling scroll bar
 [] styling total app

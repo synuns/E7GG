@@ -16,6 +16,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Coffee from "../images/coffee.png";
 import Defense from "../images/battle_pvp_icon_def.png";
 import Offense from "../images/battle_pvp_icon_win.png";
+import GuildCrest from "../images/guildcrest.png";
 
 const darkTheme = createTheme({
   palette: {
@@ -48,7 +49,8 @@ const NavBar = () => {
               component="div"
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
-              E7 Guild War Meta Tracker
+              <img src={GuildCrest} alt="" height="35"/>
+              E7GG
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -121,7 +123,8 @@ const NavBar = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
-              E7 GW Meta Tracker
+              <img src={GuildCrest} alt="" height="35"/>
+              E7GG
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 <Button

@@ -1,9 +1,10 @@
-import { Box } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Box, Container, Tooltip, Typography, Zoom } from '@mui/material';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import DefenseMetaApi from '../api/DefenseMetaApi';
 import ErrorBoundary from '../components/ErrorBoundary';
 import IdToIcon from '../components/IdToIcon';
 import MetaRecord from '../components/MetaRecord';
+import DefenseIcon from '../images/battle_pvp_icon_def.png';
 
 function Defense() {
   const [metaData, setMetaData] = useState([]);
@@ -47,11 +48,28 @@ function Defense() {
 
   if (error !== null) return <div>error!</div>;
   return (
-    <Box
+    <Container
       sx={{
-        mt: 8
+        mt: 9
       }}
     >
+      <Tooltip
+        title={
+          <Fragment>
+            <Typography>DEFENSE Meta</Typography>
+            <span>Top 20 most common defense meta in past 14 days</span>
+          </Fragment>
+        }
+        TransitionComponent={Zoom}
+        followCursor
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+            <img src={DefenseIcon} alt="offense" height="48"/>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
+              DEFENSE META
+            </Typography>
+        </Box>
+      </Tooltip>
       <ErrorBoundary>
         {loading ? 
           <span>Loading...</span> :
@@ -65,7 +83,7 @@ function Defense() {
           ))
         }
       </ErrorBoundary>
-    </Box>
+    </Container>
   );
 }
 

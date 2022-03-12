@@ -1,11 +1,12 @@
-import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip, Modal, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip, Modal, Typography, Container, Zoom } from '@mui/material';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import HeroDataApi from '../api/HeroDataApi';
 import OffenseMetaApi from '../api/OffenseMetaApi';
 import GetIdByHeroes from '../components/GetIdByHeroes';
 import IdToIcon from '../components/IdToIcon';
 import MetaRecord from '../components/MetaRecord';
+import OffenseIcon from '../images/battle_pvp_icon_win.png';
 import Assassin from '../images/classassassin.png';
 import Knight from '../images/classknight.png';
 import Mage from '../images/classmage.png';
@@ -44,7 +45,7 @@ const HeroDisplay = ({ hero }) => {
   }
 
   return (
-    <Tooltip title={hero ? hero.name : "Select Hero"}>
+    <Tooltip title={hero ? hero.name : "Select Hero"} arrow >
       <ImageListItem 
         onDragStart={preventDragHandler}
       >
@@ -249,15 +250,34 @@ const Offense = () => {
 
   if(error) return <div>Error!</div>;
   return (
-    <Box
+    <Container
       sx={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         width: 480,
-        mt: 8,
+        mt: 9,
       }}
     >
+      <Tooltip sx={{
+        bgColor: 'black'
+        }}
+        title={
+          <Fragment>
+            <Typography>Offense Meta</Typography>
+            <span>Top 100 most common offense meta</span>
+          </Fragment>
+        }
+        TransitionComponent={Zoom}
+        followCursor
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+            <img src={OffenseIcon} alt="offense" height="48"/>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
+              OFFENSE META
+            </Typography>
+        </Box>
+      </Tooltip>
       <Box>
         <ImageList
           display='fix'
@@ -333,7 +353,7 @@ const Offense = () => {
         }
       </Box>
       <CautionModal open={open} handleClose={handleClose}/>
-    </Box>
+    </Container>
   );
 }
 

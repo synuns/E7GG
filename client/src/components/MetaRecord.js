@@ -65,7 +65,7 @@ const DefRecord = ({ icons, records }) => {
         cols={3}
       >
         {icons.map((icon, index) => (
-          <Tooltip key={index} title={heroNames[index]}>
+          <Tooltip key={index} title={heroNames[index]} arrow >
             <ImageListItem
               onDragStart={preventDragHandler}
             >

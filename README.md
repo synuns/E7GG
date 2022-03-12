@@ -12,7 +12,7 @@ Epic seven guild war meta tracker
 [x] connect to the offense page in the defense page
 [x] change favicon and title
 [x] info modal
-[] each page info, title
+[x] each page info, title
 [] loading component
 [] ErrorBoundary component
 [] each api no data, error handling (when free season)

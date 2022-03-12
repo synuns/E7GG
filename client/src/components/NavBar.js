@@ -141,7 +141,7 @@ const NavBar = () => {
                   component={Link} to="/"
                   onClick={handleCloseNavMenu}
                   align="center"
-                  sx={{ my: 2, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                  sx={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 >
                   <img src={Defense} alt="Defense" height="30"/>
                   Defense
@@ -150,7 +150,7 @@ const NavBar = () => {
                   key="offense"
                   component={Link} to="/offense"
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                  sx={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 >
                   <img src={Offense} alt="Offense" height="30"/>
                   Offense
@@ -161,7 +161,7 @@ const NavBar = () => {
                     handleCloseNavMenu();
                     handleOpenModal();
                   }}
-                  sx={{ my: 2, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                  sx={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 >
                   <InfoIcon sx={{ mr: 1 }} />
                   Info

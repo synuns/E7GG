@@ -1,4 +1,5 @@
-import { Autocomplete, Box, TextField, ImageList, ImageListItem, Button, Tooltip, Modal, Typography, Container, Zoom } from '@mui/material';
+import { Autocomplete, Box, TextField, ImageList, ImageListItem, Tooltip, Modal, Typography, Container, Zoom } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import HeroDataApi from '../api/HeroDataApi';
@@ -319,24 +320,26 @@ const Offense = () => {
             width: 'auto',
           }}
         >
-          <Button 
+          <LoadingButton
             size="large"
             variant="outlined" 
             startIcon={<RefreshIcon />}
             sx={{ mx: 2, width: '100%',  }}
             onClick={handleRefresh}
+            loading={loading || metaLoading}
           >
             Refresh
-          </Button>
-          <Button 
+          </LoadingButton>
+          <LoadingButton 
             size="large"
             variant="contained" 
             endIcon={<SendIcon />}
             sx={{ mx: 2, width: '100%' }}
             onClick={handleSubmit}
+            loading={loading || metaLoading}
           >
             Submit
-          </Button>
+          </LoadingButton>
         </Box>
       </Box>
       <Box>

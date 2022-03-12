@@ -168,7 +168,7 @@ const NavBar = () => {
                 </Button>
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0 }} onClick={() => {window.open("https://www.buymeacoffee.com/fribbels")}}>
               <Tooltip title="Buy me a Coffee">
                 <img src={Coffee} alt="Buy me a Coffee" height="40" />
               </Tooltip>

@@ -259,15 +259,14 @@ const Offense = () => {
         mt: 9,
       }}
     >
-      <Tooltip sx={{
-        bgColor: 'black'
-        }}
+      <Tooltip
         title={
           <Fragment>
             <Typography>Offense Meta</Typography>
             <span>Top 100 most common offense meta</span>
           </Fragment>
         }
+        enterDelay={500} leaveDelay={200}
         TransitionComponent={Zoom}
         followCursor
       >

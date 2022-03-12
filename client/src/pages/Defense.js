@@ -56,11 +56,12 @@ function Defense() {
       <Tooltip
         title={
           <Fragment>
-            <Typography>DEFENSE Meta</Typography>
+            <Typography>Defense Meta</Typography>
             <span>Top 20 most common defense meta in past 14 days</span>
           </Fragment>
         }
         TransitionComponent={Zoom}
+        enterDelay={500} leaveDelay={200}
         followCursor
       >
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>

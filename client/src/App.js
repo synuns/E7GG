@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import NavBar from "./components/NavBar";
 import Defense from "./pages/Defense";
 import Offense from "./pages/Offense";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Defense />} />
           <Route path="/offense" element={<Offense />} />
-          {/* <Route path="/*" element={<NotFound />} /> */}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </ErrorBoundary>
     </BrowserRouter>

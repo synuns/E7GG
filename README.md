@@ -15,8 +15,9 @@ Epic seven guild war meta tracker
 [x] each page info, title
 [x] loading component
 [x] ErrorAlert
-[] NodataAlert
-[] globally prevent drag image
+[x] NodataAlert
+[x] NotFound page
 [] offense page move to top button
 [] styling scroll bar
+[] globally prevent drag image
 [] styling total app

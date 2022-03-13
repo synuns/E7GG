@@ -6,6 +6,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import IdToIcon from '../components/IdToIcon';
 import MetaRecord from '../components/MetaRecord';
 import DefenseIcon from '../images/battle_pvp_icon_def.png';
+import ErrorAlert from '../components/ErrorAlert';
 
 function Defense() {
   const [metaData, setMetaData] = useState([]);
@@ -47,13 +48,13 @@ function Defense() {
     return () => setLoading(false);
   }, [getHeroIcons]);
 
-  if (error !== null) return <div>error!</div>;
   return (
     <Container
       sx={{
         mt: 9
       }}
     >
+      { error && <ErrorAlert /> }
       <Tooltip
         title={
           <Fragment>

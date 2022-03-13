@@ -13,9 +13,9 @@ Epic seven guild war meta tracker
 [x] change favicon and title
 [x] info modal
 [x] each page info, title
-[] loading component
-[] ErrorBoundary component (use mui alert)
-[] each api no data, error handling (when free season)
+[x] loading component
+[x] ErrorAlert
+[] NodataAlert
 [] globally prevent drag image
 [] offense page move to top button
 [] styling scroll bar

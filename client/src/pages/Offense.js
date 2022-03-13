@@ -23,6 +23,7 @@ import questionCircle from "../images/question_circle.png";
 import SendIcon from '@mui/icons-material/Send';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Loading from '../components/Loading';
+import ErrorAlert from '../components/ErrorAlert';
 
 const attributeImgs = {
   fire: Fire,
@@ -344,6 +345,7 @@ const Offense = () => {
         </Box>
       </Box>
       <Box>
+        { metaError && <ErrorAlert /> }
         {
           metaLoading ? <Loading />
           : heroIcons.map((heroIcon, index) => (

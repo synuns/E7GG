@@ -1,13 +1,8 @@
-import { Alert, Snackbar, Slide } from '@mui/material'
+import { Alert, Slide, Snackbar } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 
-const ErrorAlert = (prop) => {
+const NoDataAlert = (prop) => {
   const [open, setOpen] = useState(prop.open);
-
-  const refresh = () => {
-    setOpen(false);
-    window.location.reload();
-  }
 
   useEffect(() => {
     setOpen(prop.open);
@@ -15,21 +10,21 @@ const ErrorAlert = (prop) => {
 
   return (
     <Snackbar
-      open={open}
-      anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-    >
+        open={open}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+      >
       <Slide direction="up" in={open} mountOnEnter unmountOnExit>
         <Alert 
           variant="filled" 
-          severity="error"
+          severity="warning"
           width="100%"
-          onClose={refresh}
+          onClose={() => setOpen(false)}
         >
-          Failed! Please try again.
+          No data exist to display.
         </Alert>
       </Slide>
     </Snackbar>
   )
 }
 
-export default ErrorAlert
+export default NoDataAlert

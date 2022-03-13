@@ -24,6 +24,7 @@ import SendIcon from '@mui/icons-material/Send';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Loading from '../components/Loading';
 import ErrorAlert from '../components/ErrorAlert';
+import NoDataAlert from '../components/NoDataAlert';
 
 const attributeImgs = {
   fire: Fire,
@@ -251,7 +252,6 @@ const Offense = () => {
     getHeroIcons();
   }, [getHeroIcons]);
 
-  if(error) return <div>Error!</div>;
   return (
     <Container
       sx={{
@@ -262,6 +262,7 @@ const Offense = () => {
         mt: 9,
       }}
     >
+      {error && <ErrorAlert open={true} /> }
       <Tooltip
         title={
           <Fragment>
@@ -345,7 +346,7 @@ const Offense = () => {
         </Box>
       </Box>
       <Box>
-        { metaError && <ErrorAlert /> }
+        { metaError && <NoDataAlert open={true} /> }
         {
           metaLoading ? <Loading />
           : heroIcons.map((heroIcon, index) => (

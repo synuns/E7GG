@@ -66,7 +66,7 @@ function Defense() {
         enterDelay={500} leaveDelay={200}
         followCursor
       >
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+        <Box id="top" sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
             <img src={DefenseIcon} alt="offense" height="48"/>
             <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
               DEFENSE META

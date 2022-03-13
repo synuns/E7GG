@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import InfoIcon from '@mui/icons-material/Info';
 import Coffee from "../images/coffee.png";
 import Defense from "../images/battle_pvp_icon_def.png";
 import Offense from "../images/battle_pvp_icon_win.png";
 import GuildCrest from "../images/guildcrest.png";
+import ScrollTopBtn from "./ScrollTopBtn";
 import InfoModal from './InfoModal';
 
 const darkTheme = createTheme({
@@ -175,6 +176,7 @@ const NavBar = () => {
             </Box>
           </Toolbar>
         </Container>
+        <ScrollTopBtn />
       </AppBar>
     </ThemeProvider>
   );

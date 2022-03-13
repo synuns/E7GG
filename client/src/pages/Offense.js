@@ -22,6 +22,7 @@ import Light from '../images/elementlight.png';
 import questionCircle from "../images/question_circle.png";
 import SendIcon from '@mui/icons-material/Send';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import Loading from '../components/Loading';
 
 const attributeImgs = {
   fire: Fire,
@@ -344,7 +345,8 @@ const Offense = () => {
       </Box>
       <Box>
         {
-          heroIcons.map((heroIcon, index) => (
+          metaLoading ? <Loading />
+          : heroIcons.map((heroIcon, index) => (
             <MetaRecord
               type={type}
               key={index}

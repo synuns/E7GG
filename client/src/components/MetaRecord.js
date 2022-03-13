@@ -13,8 +13,11 @@ const calPercent = (win, draw, lose) => {
   const percent = win / total * 100;
   if(percent){
     return +(Math.round(percent + "e+1")  + "e-1");
+  }else if(percent === 0){
+    return 0;
+  }else{
+    return "-";
   }
-  return "-";
 }
 
 const idsToNames = (records) => {
@@ -69,7 +72,7 @@ const DefRecord = ({ icons, records }) => {
             <ImageListItem
               onDragStart={preventDragHandler}
             >
-                <img src={icon} alt="icon" />
+                <img src={icon} alt="icon" loading="lazy" />
             </ImageListItem>
           </Tooltip>
         ))}
@@ -151,7 +154,7 @@ const AtkRecord = ({ icons, records }) => {
             <ImageListItem
               onDragStart={preventDragHandler}
             >
-                <img src={icon} alt="icon" />
+                <img src={icon} alt="icon" loading="lazy" />
             </ImageListItem>
           </Tooltip>
         ))}

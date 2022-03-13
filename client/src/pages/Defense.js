@@ -1,5 +1,6 @@
 import { Box, Container, Tooltip, Typography, Zoom } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import Loading from '../components/Loading';
 import DefenseMetaApi from '../api/DefenseMetaApi';
 import ErrorBoundary from '../components/ErrorBoundary';
 import IdToIcon from '../components/IdToIcon';
@@ -73,7 +74,7 @@ function Defense() {
       </Tooltip>
       <ErrorBoundary>
         {loading ? 
-          <span>Loading...</span> :
+          <Loading /> :
           heroIcons.map((heroIcon, index) => (
             <MetaRecord
               type={type}

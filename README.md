@@ -18,5 +18,6 @@ Epic seven guild war meta tracker
 - [x] NodataAlert
 - [x] NotFound page
 - [x] ScrollTop button
-- [] globally prevent drag image
+- [x] globally prevent drag image
+- [x] arrange layout
 - [] styling total app

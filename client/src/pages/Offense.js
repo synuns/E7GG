@@ -258,6 +258,7 @@ const Offense = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        minWidth: '360px',
         width: 480,
         mt: 9,
       }}
@@ -274,7 +275,7 @@ const Offense = () => {
         TransitionComponent={Zoom}
         followCursor
       >
-        <Box id="top" sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
             <img src={OffenseIcon} alt="offense" height="48"/>
             <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
               OFFENSE META
@@ -327,7 +328,7 @@ const Offense = () => {
             size="large"
             variant="outlined" 
             startIcon={<RefreshIcon />}
-            sx={{ mx: 2, width: '100%',  }}
+            sx={{ mx: 2, width: '100%' }}
             onClick={handleRefresh}
             loading={loading || metaLoading}
           >

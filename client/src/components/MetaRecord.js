@@ -30,10 +30,6 @@ const idsToNames = (records) => {
   return heroNames;
 }
 
-const preventDragHandler = (event) => {
-  event.preventDefault();
-}
-
 const DefRecord = ({ icons, records }) => {
   const heroNames = idsToNames(records);
   const percent = calPercent(records.w, records.d, records.l);
@@ -45,21 +41,20 @@ const DefRecord = ({ icons, records }) => {
 
   return (
     <Box
-      justifyContent="space-between"
-      alignContent="center"
       sx={{
         width: 'auto',
         display: 'flex',
-        p: 1,
+        justifyContent: "space-between",
+        alignContent: "center",
+        mt: 1,
       }}
     >
       <ImageList
         onClick={handleClick}
         sx={{ 
-          width: 220, 
-          height: 70,
+          width: 230, 
+          height: 75,
           borderRadius: 4,
-          p: 1.5,
           ':hover': {
             boxShadow: 1,
             opacity: 0.9,
@@ -69,9 +64,7 @@ const DefRecord = ({ icons, records }) => {
       >
         {icons.map((icon, index) => (
           <Tooltip key={index} title={ heroNames[index] ? heroNames[index] : "No data" } arrow >
-            <ImageListItem
-              onDragStart={preventDragHandler}
-            >
+            <ImageListItem>
                 <img src={icon} alt="icon" loading="lazy" />
             </ImageListItem>
           </Tooltip>
@@ -80,18 +73,16 @@ const DefRecord = ({ icons, records }) => {
       <Box
         display="flex"
         flexDirection= "column"
-        justifyContent="center"
-        alignContent="center"
         sx={{
-          width: 180,
-          height: 70,
-          py: 2.5,
-          mt: 1,
+          width: 'auto',
+          height: 'auto',
+          justifyContent: "center",
+          alignContent: "center",
         }}
       >
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-end"
           alignContent="center"
         >
           {percent}
@@ -99,22 +90,23 @@ const DefRecord = ({ icons, records }) => {
         </Box>
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-end"
           alignContent="center"
+          sx={{ mt: 1 }}
         >
           <Box
             display="inline-flex"
-            sx={{ m:1 }}
+            sx={{ ml: 1 }}
           >
             { records.w }
-            <img src={DefWinIcon} alt="Defense" height="28"/>
+            <img src={DefWinIcon} alt="Defense" height="28" />
           </Box>
           <Box
             display="inline-flex"
-            sx={{ m:1 }}
+            sx={{ ml: 1 }}
           >
             { records.l }
-            <img src={DefLoseIcon} alt="Defense" height="28"/>
+            <img src={DefLoseIcon} alt="Defense" height="28" draggable="false"/>
           </Box>
         </Box>
       </Box>
@@ -128,32 +120,25 @@ const AtkRecord = ({ icons, records }) => {
 
   return (
     <Box
-      justifyContent="space-between"
-      alignContent="center"
       sx={{
         width: 'auto',
         display: 'flex',
-        p: 1,
+        justifyContent: "space-between",
+        alignContent: "center",
+        mt: 1,
       }}
     >
       <ImageList
-        sx={{ 
-          width: 220, 
-          height: 70,
+        sx={{
+          width: 230, 
+          height: 75,
           borderRadius: 4,
-          p: 1.5,
-          ':hover': {
-            boxShadow: 1,
-            opacity: 0.9,
-          },
         }}
         cols={3}
       >
         {icons.map((icon, index) => (
           <Tooltip key={index} title={ heroNames[index] ? heroNames[index] : "No data" }>
-            <ImageListItem
-              onDragStart={preventDragHandler}
-            >
+            <ImageListItem sx={{ width: '100%' }}>
                 <img src={icon} alt="icon" loading="lazy" />
             </ImageListItem>
           </Tooltip>
@@ -162,18 +147,16 @@ const AtkRecord = ({ icons, records }) => {
       <Box
         display="flex"
         flexDirection= "column"
-        justifyContent="center"
-        alignContent="center"
         sx={{
-          width: 180,
-          height: 70,
-          py: 2.5,
-          mt: 1,
+          width: 'auto',
+          height: 'auto',
+          justifyContent: "center",
+          alignContent: "center",
         }}
       >
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-end"
           alignContent="center"
         >
           {percent}
@@ -181,19 +164,20 @@ const AtkRecord = ({ icons, records }) => {
         </Box>
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-end"
           alignContent="center"
+          sx={{ mt: 1 }}
         >
           <Box
             display="inline-flex"
-            sx={{ m:1 }}
+            sx={{ ml: 1 }}
           >
             { records[1].w }
             <img src={AtkWinIcon} alt="Offense" height="28"/>
           </Box>
           <Box
             display="inline-flex"
-            sx={{ m:1 }}
+            sx={{ ml: 1 }}
           >
             { records[1].l }
             <img src={AtkLoseIcon} alt="Offense" height="28"/>

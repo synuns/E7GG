@@ -5,16 +5,20 @@ import React from 'react'
 
 const NotFound = () => {
   return (
-    <Container>
+    <Container
+      sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          width: "100vw",
-          height: "95vh",
-          maxWidth: '100%',
         }}
       >
         <img src={Vildred} alt="not found" height="200" />

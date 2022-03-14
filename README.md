@@ -20,4 +20,5 @@ Epic seven guild war meta tracker
 - [x] ScrollTop button
 - [x] globally prevent drag image
 - [x] arrange layout
-- [] styling total app
+- [x] styling total app
+- [ ] dark/light mode

@@ -56,7 +56,6 @@ function Defense() {
         justifyContent: 'center',
         minWidth: '360px',
         width: 480,
-        mt: 9,
       }}
     >
       { error && <ErrorAlert /> }
@@ -71,7 +70,7 @@ function Defense() {
         enterDelay={500} leaveDelay={200}
         followCursor
       >
-        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', mt: 9 }}>
             <img src={DefenseIcon} alt="offense" height="48"/>
             <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
               DEFENSE META

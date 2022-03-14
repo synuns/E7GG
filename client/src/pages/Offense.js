@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField, ImageList, ImageListItem, Tooltip, Modal, Typography, Container, Zoom } from '@mui/material';
+import { Autocomplete, Box, TextField, ImageList, ImageListItem, Tooltip, Modal, Typography, Zoom, Container, Card } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -119,34 +119,32 @@ const HeroSelector = ({ data, loading, text, setValue, selected }) => {
 
 const CautionModal = ({ open, handleClose }) => {
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+        }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Typography id="modal-title" variant="h6" component="h2">
-            Select heroes again!
-          </Typography>
-          <Typography id="modal-description" sx={{ mt: 2 }}>
-            Choose three different heroes each.
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+        <Typography id="modal-title" variant="h6" component="h2">
+          Select heroes again!
+        </Typography>
+        <Typography id="modal-description" sx={{ mt: 2 }}>
+          Choose three different heroes each.
+        </Typography>
+      </Box>
+    </Modal>
   );
 }
 
@@ -260,7 +258,7 @@ const Offense = () => {
         justifyContent: 'center',
         minWidth: '360px',
         width: 480,
-        mt: 9,
+        mt: 9 
       }}
     >
       {error && <ErrorAlert open={true} /> }
@@ -275,77 +273,79 @@ const Offense = () => {
         TransitionComponent={Zoom}
         followCursor
       >
-        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', }}>
+        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline' }}>
             <img src={OffenseIcon} alt="offense" height="48"/>
             <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
               OFFENSE META
             </Typography>
         </Box>
       </Tooltip>
-      <Box>
-        <ImageList
-          display='fix'
-          sx={{ width: 'auto', m: 1.5 }}
-          cols={3}
-        >
-          <HeroDisplay hero={first} />
-          <HeroDisplay hero={second} />
-          <HeroDisplay hero={third} />
-        </ImageList>
-      </Box>
-      <Box>
-        <HeroSelector 
-          data={heroes}
-          loading={loading}
-          text="1st hero"
-          setValue={setFirst}
-          selected={first}
-        />
-        <HeroSelector 
-          data={heroes}
-          loading={loading}
-          text="2nd hero"
-          setValue={setSecond}
-          selected={second}
-        />
-        <HeroSelector 
-          data={heroes}
-          loading={loading}
-          text="3rd hero"
-          setValue={setThird}
-          selected={third}
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center',
-            mt: 2,
-            width: 'auto',
-          }}
-        >
-          <LoadingButton
-            size="large"
-            variant="outlined" 
-            startIcon={<RefreshIcon />}
-            sx={{ mx: 2, width: '100%' }}
-            onClick={handleRefresh}
-            loading={loading || metaLoading}
+      <Card sx={{ mt:2, p: 2 }}>
+        <Box>
+          <ImageList
+            display='fix'
+            sx={{ width: 'auto', m: 1.5 }}
+            cols={3}
           >
-            Refresh
-          </LoadingButton>
-          <LoadingButton 
-            size="large"
-            variant="contained" 
-            endIcon={<SendIcon />}
-            sx={{ mx: 2, width: '100%' }}
-            onClick={handleSubmit}
-            loading={loading || metaLoading}
-          >
-            Submit
-          </LoadingButton>
+            <HeroDisplay hero={first} />
+            <HeroDisplay hero={second} />
+            <HeroDisplay hero={third} />
+          </ImageList>
         </Box>
-      </Box>
+        <Box>
+          <HeroSelector 
+            data={heroes}
+            loading={loading}
+            text="1st hero"
+            setValue={setFirst}
+            selected={first}
+          />
+          <HeroSelector 
+            data={heroes}
+            loading={loading}
+            text="2nd hero"
+            setValue={setSecond}
+            selected={second}
+          />
+          <HeroSelector 
+            data={heroes}
+            loading={loading}
+            text="3rd hero"
+            setValue={setThird}
+            selected={third}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              alignContent: 'center',
+              justifyContent: 'center',
+              mt: 2,
+              width: 'auto',
+            }}
+          >
+            <LoadingButton
+              size="large"
+              variant="outlined" 
+              startIcon={<RefreshIcon />}
+              sx={{ mx: 2, width: '100%' }}
+              onClick={handleRefresh}
+              loading={loading || metaLoading}
+            >
+              Refresh
+            </LoadingButton>
+            <LoadingButton 
+              size="large"
+              variant="contained" 
+              endIcon={<SendIcon />}
+              sx={{ mx: 2, width: '100%' }}
+              onClick={handleSubmit}
+              loading={loading || metaLoading}
+            >
+              Submit
+            </LoadingButton>
+          </Box>
+        </Box>
+      </Card>
       <Box>
         { metaError && <NoDataAlert open={true} /> }
         {

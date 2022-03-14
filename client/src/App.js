@@ -6,11 +6,13 @@ import NavBar from "./components/NavBar";
 import Defense from "./pages/Defense";
 import Offense from "./pages/Offense";
 import NotFound from "./pages/NotFound";
+import { ThemeProvider } from '@mui/material/styles';
+import { dark } from './Style';
 import "./App.css";
 
 function App() {
   return (
-    <React.Fragment>
+    <ThemeProvider theme={dark}>
       <CssBaseline />
       <BrowserRouter>
         <NavBar />
@@ -22,7 +24,7 @@ function App() {
           </Routes>
         </ErrorBoundary>
       </BrowserRouter>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 

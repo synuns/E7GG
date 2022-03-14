@@ -11,7 +11,7 @@ const Loading = () => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         alignItems: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
       }}
     >
       <img src={Aither} alt="loading..." height="100"/>

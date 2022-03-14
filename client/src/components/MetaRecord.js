@@ -1,4 +1,4 @@
-import { Box, Container, ImageList, ImageListItem, Tooltip } from '@mui/material';
+import { Box, Card, ImageList, ImageListItem, Tooltip } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import heroesById from './HeroesById';
 import PercentIcon from '@mui/icons-material/Percent';
@@ -46,7 +46,6 @@ const DefRecord = ({ icons, records }) => {
         display: 'flex',
         justifyContent: "space-between",
         alignContent: "center",
-        mt: 1,
       }}
     >
       <ImageList
@@ -56,7 +55,6 @@ const DefRecord = ({ icons, records }) => {
           height: 75,
           borderRadius: 4,
           ':hover': {
-            boxShadow: 1,
             opacity: 0.9,
           },
         }}
@@ -190,12 +188,12 @@ const AtkRecord = ({ icons, records }) => {
 
 function MetaRecord({ type, icons, records }) {
   return (
-    <Container>
+    <Card sx={{ mt:2 , px: 2 }}>
       { (type === 'offense')
         ? <AtkRecord icons={icons} records={records} />
         : <DefRecord icons={icons} records={records} />
       }
-    </Container>
+    </Card>
   );
 }
 

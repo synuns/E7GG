@@ -3,7 +3,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import Loading from '../components/Loading';
 import DefenseMetaApi from '../api/DefenseMetaApi';
 import ErrorBoundary from '../components/ErrorBoundary';
-import IdToIcon from '../components/IdToIcon';
+import IdToIcon from '../utils/IdToIcon';
 import MetaRecord from '../components/MetaRecord';
 import DefenseIcon from '../images/battle_pvp_icon_def.png';
 import ErrorAlert from '../components/ErrorAlert';

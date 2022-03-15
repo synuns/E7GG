@@ -1,6 +1,6 @@
 import { Box, Card, ImageList, ImageListItem, Tooltip } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import heroesById from './HeroesById';
+import heroesById from '../utils/HeroesById';
 import PercentIcon from '@mui/icons-material/Percent';
 import DefWinIcon from '../images/battle_pvp_icon_def.png';
 import DefLoseIcon from '../images/battle_pvp_icon_defeat.png';

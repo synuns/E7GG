@@ -78,7 +78,7 @@ const NavBar = () => {
               }}
             >
               <MenuItem key="defense" onClick={handleCloseNavMenu}>
-                <Link to="/">
+                <Link to="/e7gg/">
                   <Typography 
                     color="nav"
                     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -89,7 +89,7 @@ const NavBar = () => {
                 </Link>
               </MenuItem>
               <MenuItem key="offense" onClick={handleCloseNavMenu}>
-                <Link to="/offense">
+                <Link to="/e7gg/offense">
                   <Typography 
                     color="nav"
                     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -129,7 +129,7 @@ const NavBar = () => {
               <Button
                 key="defense"
                 color="nav"
-                component={Link} to="/"
+                component={Link} to="/e7gg/"
                 onClick={handleCloseNavMenu}
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}
               >
@@ -139,7 +139,7 @@ const NavBar = () => {
               <Button
                 key="offense"
                 color="nav"
-                component={Link} to="/offense"
+                component={Link} to="/e7gg/offense"
                 onClick={handleCloseNavMenu}
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}
               >

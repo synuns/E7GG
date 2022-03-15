@@ -36,7 +36,7 @@ const DefRecord = ({ icons, records }) => {
   let navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/offense", { state : heroNames });
+    navigate("/e7gg/offense", { state : heroNames });
   }
 
   return (

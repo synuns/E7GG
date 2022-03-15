@@ -255,115 +255,125 @@ const Offense = () => {
     <Container
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        minWidth: '360px',
-        width: 480,
-        mt: 9 
       }}
     >
-      {error && <ErrorAlert open={true} /> }
-      <Tooltip
-        title={
-          <Fragment>
-            <Typography>Offense Meta</Typography>
-            <span>Top 100 most common offense meta</span>
-          </Fragment>
-        }
-        enterDelay={500} leaveDelay={200}
-        TransitionComponent={Zoom}
-        followCursor
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          width: '100%',
+          minWidth: '360px',
+          maxWidth: '600px',
+        }}
       >
-        <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline' }}>
-            <img src={OffenseIcon} alt="offense" height="48"/>
-            <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
-              OFFENSE META
-            </Typography>
-        </Box>
-      </Tooltip>
-      <Card sx={{ my:2, p: 2 }}>
-        <Box>
-          <ImageList
-            display='fix'
-            sx={{ width: 'auto', m: 1.5 }}
-            cols={3}
-          >
-            <HeroDisplay hero={first} />
-            <HeroDisplay hero={second} />
-            <HeroDisplay hero={third} />
-          </ImageList>
-        </Box>
-        <Box>
-          <HeroSelector 
-            data={heroes}
-            loading={loading}
-            text="1st hero"
-            setValue={setFirst}
-            selected={first}
-          />
-          <HeroSelector 
-            data={heroes}
-            loading={loading}
-            text="2nd hero"
-            setValue={setSecond}
-            selected={second}
-          />
-          <HeroSelector 
-            data={heroes}
-            loading={loading}
-            text="3rd hero"
-            setValue={setThird}
-            selected={third}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              alignContent: 'center',
-              justifyContent: 'center',
-              mt: 2,
-              width: 'auto',
-            }}
-          >
-            <LoadingButton
-              size="large"
-              variant="outlined" 
-              startIcon={<RefreshIcon />}
-              sx={{ mx: 2, width: '100%' }}
-              onClick={handleRefresh}
-              loading={loading || metaLoading}
-            >
-              Refresh
-            </LoadingButton>
-            <LoadingButton 
-              size="large"
-              variant="contained" 
-              endIcon={<SendIcon />}
-              sx={{ mx: 2, width: '100%' }}
-              onClick={handleSubmit}
-              loading={loading || metaLoading}
-            >
-              Submit
-            </LoadingButton>
-          </Box>
-        </Box>
-      </Card>
-      <Box>
-        { metaError && <NoDataAlert open={true} /> }
-        <ErrorBoundary>
-          {
-            metaLoading ? <Loading />
-            : heroIcons.map((heroIcon, index) => (
-              <MetaRecord
-                type={type}
-                key={index}
-                icons={heroIcon}
-                records={metaData[index]}
-              />
-            ))
+        {error && <ErrorAlert open={true} /> }
+        <Tooltip
+          title={
+            <Fragment>
+              <Typography>Offense Meta</Typography>
+              <span>Top 100 most common offense meta</span>
+            </Fragment>
           }
-        </ErrorBoundary>
+          enterDelay={500} leaveDelay={200}
+          TransitionComponent={Zoom}
+          followCursor
+        >
+          <Box id="top" sx={{ display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', mt: 9 }}>
+              <img src={OffenseIcon} alt="offense" height="48"/>
+              <Typography variant="h3" sx={{ fontWeight: 'bold', display: { xs: 'none', md: 'block' } }} >
+                OFFENSE META
+              </Typography>
+              <Typography variant="h3" sx={{ fontWeight: 'bold', display: { sx: 'block', md: 'none' } }} >
+                OFFENSE
+              </Typography>
+          </Box>
+        </Tooltip>
+        <Card sx={{ my:2, p: 2 }}>
+          <Box>
+            <ImageList
+              display='fix'
+              sx={{ width: 'auto', m: 1.5 }}
+              cols={3}
+            >
+              <HeroDisplay hero={first} />
+              <HeroDisplay hero={second} />
+              <HeroDisplay hero={third} />
+            </ImageList>
+          </Box>
+          <Box>
+            <HeroSelector 
+              data={heroes}
+              loading={loading}
+              text="1st hero"
+              setValue={setFirst}
+              selected={first}
+            />
+            <HeroSelector 
+              data={heroes}
+              loading={loading}
+              text="2nd hero"
+              setValue={setSecond}
+              selected={second}
+            />
+            <HeroSelector 
+              data={heroes}
+              loading={loading}
+              text="3rd hero"
+              setValue={setThird}
+              selected={third}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                alignContent: 'center',
+                justifyContent: 'center',
+                mt: 2,
+                width: 'auto',
+              }}
+            >
+              <LoadingButton
+                size="large"
+                variant="outlined" 
+                startIcon={<RefreshIcon />}
+                sx={{ mx: 2, width: '100%' }}
+                onClick={handleRefresh}
+                loading={loading || metaLoading}
+              >
+                Refresh
+              </LoadingButton>
+              <LoadingButton 
+                size="large"
+                variant="contained" 
+                endIcon={<SendIcon />}
+                sx={{ mx: 2, width: '100%' }}
+                onClick={handleSubmit}
+                loading={loading || metaLoading}
+              >
+                Submit
+              </LoadingButton>
+            </Box>
+          </Box>
+        </Card>
+        <Box>
+          { metaError && <NoDataAlert open={true} /> }
+          <ErrorBoundary>
+            {
+              metaLoading ? <Loading />
+              : heroIcons.map((heroIcon, index) => (
+                <MetaRecord
+                  type={type}
+                  key={index}
+                  icons={heroIcon}
+                  records={metaData[index]}
+                />
+              ))
+            }
+          </ErrorBoundary>
+        </Box>
+        <CautionModal open={open} handleClose={handleClose}/>
       </Box>
-      <CautionModal open={open} handleClose={handleClose}/>
     </Container>
   );
 }

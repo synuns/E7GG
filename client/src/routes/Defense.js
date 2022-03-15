@@ -52,44 +52,55 @@ function Defense() {
     <Container
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        minWidth: '360px',
-        width: 480,
       }}
     >
-      { error && <ErrorAlert /> }
-      <Tooltip
-        title={
-          <Fragment>
-            <Typography>Defense Meta</Typography>
-            <span>Top 20 most common defense meta in past 14 days</span>
-          </Fragment>
-        }
-        TransitionComponent={Zoom}
-        enterDelay={500} leaveDelay={200}
-        followCursor
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          width: '100%',
+          minWidth: '400px',
+          maxWidth: '600px',
+        }}
       >
-        <Box id="top" sx={{ mb: 2, display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', mt: 9 }}>
-            <img src={DefenseIcon} alt="offense" height="48"/>
-            <Typography variant="h3" sx={{ fontWeight: 'bold', }} >
-              DEFENSE META
-            </Typography>
-        </Box>
-      </Tooltip>
-      <ErrorBoundary>
-        {loading ? 
-          <Loading /> :
-          heroIcons.map((heroIcon, index) => (
-            <MetaRecord
-              type={type}
-              key={index}
-              icons={heroIcon}
-              records={metaData[index]}
-            />
-          ))
-        }
-      </ErrorBoundary>
+        { error && <ErrorAlert /> }
+        <Tooltip
+          title={
+            <Fragment>
+              <Typography>Defense Meta</Typography>
+              <span>Top 20 most common defense meta in past 14 days</span>
+            </Fragment>
+          }
+          TransitionComponent={Zoom}
+          enterDelay={500} leaveDelay={200}
+          followCursor
+        >
+          <Box id="top" sx={{ mb: 2, display: 'inline-flex', justifyContent: 'flex-start', alignContent: 'baseline', mt: 9 }}>
+              <img src={DefenseIcon} alt="offense" height="48"/>
+              <Typography variant="h3" sx={{ fontWeight: 'bold', display: { xs: 'none', md: 'block' } }} >
+                DEFENSE META
+              </Typography>
+              <Typography variant="h3" sx={{ fontWeight: 'bold', display: { sx: 'block', md: 'none' } }} >
+                DEFENSE
+              </Typography>
+          </Box>
+        </Tooltip>
+        <ErrorBoundary>
+          {loading ? 
+            <Loading /> :
+            heroIcons.map((heroIcon, index) => (
+              <MetaRecord
+                type={type}
+                key={index}
+                icons={heroIcon}
+                records={metaData[index]}
+              />
+            ))
+          }
+        </ErrorBoundary>
+      </Box>
     </Container>
   );
 }

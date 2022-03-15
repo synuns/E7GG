@@ -17,9 +17,10 @@ function App() {
         <NavBar />
         <ErrorBoundary>
           <Routes>
-            <Route path="/" element={<Defense />} />
-            <Route path="/offense" element={<Offense />} />
-            <Route path="/*" element={<NotFound />} />
+            <Route path="/e7gg/" element={<Defense />} />
+            <Route path="/e7gg/defense" element={<Defense />} />
+            <Route path="/e7gg/offense" element={<Offense />} />
+            <Route path="/e7gg/*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>
       </ThemeProvider>

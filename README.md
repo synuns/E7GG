@@ -22,4 +22,4 @@ Epic seven guild war meta tracker
 - [x] arrange layout
 - [x] styling total app
 - [x] dark/light mode
-- [ ] deploy
+- [x] deploy

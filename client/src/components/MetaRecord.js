@@ -188,7 +188,7 @@ const AtkRecord = ({ icons, records }) => {
 
 function MetaRecord({ type, icons, records }) {
   return (
-    <Card sx={{ mt:2 , px: 2 }}>
+    <Card sx={{ mb: 2, px: 2 }}>
       { (type === 'offense')
         ? <AtkRecord icons={icons} records={records} />
         : <DefRecord icons={icons} records={records} />

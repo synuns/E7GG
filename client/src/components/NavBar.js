@@ -8,18 +8,19 @@ import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import InfoIcon from '@mui/icons-material/Info';
-import Coffee from "../images/coffee.png";
 import Defense from "../images/battle_pvp_icon_def.png";
 import Offense from "../images/battle_pvp_icon_win.png";
 import GuildCrest from "../images/guildcrest.png";
 import ScrollTopBtn from "./ScrollTopBtn";
 import InfoModal from './InfoModal';
+import ThemeSwitch from './ThemeSwitch';
+import { useTheme } from '../context/ThemeProvider';
 
 const NavBar = () => {
+  const [ThemeMode, toggleTheme] = useTheme();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
@@ -80,7 +81,6 @@ const NavBar = () => {
                 <Link to="/">
                   <Typography 
                     color="nav"
-                    textAlign="center" 
                     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     <img src={Defense} alt="Defense" height="25"/>
@@ -89,16 +89,15 @@ const NavBar = () => {
                 </Link>
               </MenuItem>
               <MenuItem key="offense" onClick={handleCloseNavMenu}>
-                <Typography 
-                  color="nav"
-                  textAlign="center" 
-                  sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                >
-                  <Link to="/offense">
-                    <img src={Offense} alt="Offense" height="25"/>
-                      Offense
-                  </Link>
-                </Typography>
+                <Link to="/offense">
+                  <Typography 
+                    color="nav"
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >
+                      <img src={Offense} alt="Offense" height="25"/>
+                        Offense
+                  </Typography>
+                </Link>
               </MenuItem>
               <MenuItem 
                 key="info" 
@@ -132,7 +131,6 @@ const NavBar = () => {
                 color="nav"
                 component={Link} to="/"
                 onClick={handleCloseNavMenu}
-                align="center"
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}
               >
                 <img src={Defense} alt="Defense" height="30"/>
@@ -165,12 +163,12 @@ const NavBar = () => {
                 </Typography>
               </Button>
           </Box>
-
-          <Box sx={{ flexGrow: 0 }} onClick={() => {window.open("https://www.buymeacoffee.com/fribbels")}}>
+          <ThemeSwitch toggle={toggleTheme} mode={ThemeMode}/>
+          {/* <Box sx={{ flexGrow: 0 }} onClick={() => {window.open("https://www.buymeacoffee.com/fribbels")}}>
             <Tooltip title="Buy me a Coffee">
               <img src={Coffee} alt="Buy me a Coffee" height="40" />
             </Tooltip>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
       <ScrollTopBtn />

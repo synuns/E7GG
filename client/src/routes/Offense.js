@@ -25,6 +25,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import Loading from '../components/Loading';
 import ErrorAlert from '../components/ErrorAlert';
 import NoDataAlert from '../components/NoDataAlert';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const attributeImgs = {
   fire: Fire,
@@ -280,7 +281,7 @@ const Offense = () => {
             </Typography>
         </Box>
       </Tooltip>
-      <Card sx={{ mt:2, p: 2 }}>
+      <Card sx={{ my:2, p: 2 }}>
         <Box>
           <ImageList
             display='fix'
@@ -348,17 +349,19 @@ const Offense = () => {
       </Card>
       <Box>
         { metaError && <NoDataAlert open={true} /> }
-        {
-          metaLoading ? <Loading />
-          : heroIcons.map((heroIcon, index) => (
-            <MetaRecord
-              type={type}
-              key={index}
-              icons={heroIcon}
-              records={metaData[index]}
-            />
-          ))
-        }
+        <ErrorBoundary>
+          {
+            metaLoading ? <Loading />
+            : heroIcons.map((heroIcon, index) => (
+              <MetaRecord
+                type={type}
+                key={index}
+                icons={heroIcon}
+                records={metaData[index]}
+              />
+            ))
+          }
+        </ErrorBoundary>
       </Box>
       <CautionModal open={open} handleClose={handleClose}/>
     </Container>

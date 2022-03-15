@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/e7gg/static/css/main.488aaf39.css",
+    "main.js": "/e7gg/static/js/main.315a8d1c.js",
+    "static/media/vildred.gif": "/e7gg/static/media/vildred.e8abfcd255d5492700f2.gif",
+    "static/media/aither.gif": "/e7gg/static/media/aither.0e716f7e2d441731931c.gif",
+    "static/media/guildcrest.png": "/e7gg/static/media/guildcrest.c6fb3c2abfbea70f443a.png",
+    "static/media/question_circle.png": "/e7gg/static/media/question_circle.4fbc5cad6cc541c12a69.png",
+    "index.html": "/e7gg/index.html",
+    "main.488aaf39.css.map": "/e7gg/static/css/main.488aaf39.css.map",
+    "main.315a8d1c.js.map": "/e7gg/static/js/main.315a8d1c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.488aaf39.css",
+    "static/js/main.315a8d1c.js"
+  ]
+}

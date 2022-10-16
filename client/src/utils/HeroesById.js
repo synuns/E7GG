@@ -248,8 +248,25 @@ const heroesById = {
   "c1128": "Hwayoung",
   "c4143": "Verdant Adin",
   "c4103": "Vigilante Leader Glenn",
-  "c2110": "Pirate Captain Flan"
-  // updated at 2022.03.15
+  "c2110": "Pirate Captain Flan",
+  "c1130": "Jack-O",
+  "c1129": "Aria",
+  "c1127": "Taeyou",
+  "c4141": "Holy Flame Adin",
+  "c1131": "Yulha",
+  "c4012": "Summer's Disciple Alexa",
+  "c2088": "Sylvan Sage Vivian",
+  "c1132": "Sharun",
+  "c5009": "Summer Break Charlotte",
+  "c6037": "Moon Bunny Dominiel",
+  "c1134": "Edward Elric",
+  "c1135": "Roy Mustang",
+  "c1136": "Riza Hawkeye",
+  "c2080": "Commander Pavel",
+  "c1126": "Lua",
+  "c2091": "Astromancer Elena",
+  "c4004": "Unbound Knight Arowell"
+  // updated at 2022.10.16
 };
 
 export default heroesById;
